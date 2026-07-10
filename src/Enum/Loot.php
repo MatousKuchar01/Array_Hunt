@@ -30,7 +30,11 @@ enum Loot
     case HAPPY_GUY;
     case HUGE_CAT;
 
-    public function symbol(): string
+    **
+     * Returns item label
+     * @return string
+     */
+    public function label(): string
     {
         return match ($this) {
             // COMMON
@@ -56,6 +60,72 @@ enum Loot
             self::DUCKY_DUCK => 'Ducky duck',
             self::HAPPY_GUY => 'Happy guy',
             self::HUGE_CAT => 'Huge cat',
+        };
+    }
+
+    **
+     * Returns item symbol
+     * @return string
+     */
+    public function symbol(): string
+    {
+        return match ($this) {
+            // COMMON
+            self::COLD_COFFEE => 'c[_]',
+            self::NOTHING => '¯\_(ツ)_/¯',
+            self::FUNNY_GUY => '( ._.)',
+            self::CONFUSED_GUY => '＼(〇_ｏ)／',
+            self::SLEEPING_GUY => '(-.-)',
+            self::KITTY => '(=^..^=)',
+            self::KITTY_2 => '(^._.^)~',
+            self::BUG => '/v\\',
+            self::ACTUAL_NULL => '[NULL]',
+            // RARE
+            self::LONGSWORD => 'o()xxxx||======>',
+            self::POINTER => '(☞ﾟ∀ﾟ)☞',
+            self::INFINITE_LOOP => '∞',
+            self::CODING_HAT => '_/\_',
+            self::MEMORY_LEAK => '<ooo>',
+            self::BIGGER_BUG => '/X\\',
+            // LEGENDARY
+            self::RAGING_GUY => '(╯°□ °)╯︵ ┻━┻',
+            self::WIZARD => '( ͡° ͜ʖ ͡°)⊃━☆ﾟ.*',
+            self::DUCKY_DUCK => '（・⊝・）',
+            self::HAPPY_GUY => '┗(彡▽彡)┛',
+            self::HUGE_CAT => '(=^ ◡ ^=)',
+        };
+    }
+
+    **
+     * Returns item description
+     * @return string
+     */
+    public function description(): string
+    {
+        return match ($this) {
+            // COMMON
+            self::COLD_COFFEE => 'You can have it if you want.',
+            self::NOTHING => 'There was supposed to be treasure, but developer overslept.',
+            self::FUNNY_GUY => 'He just looks at you.',
+            self::CONFUSED_GUY => '???',
+            self::SLEEPING_GUY => 'Shhhh. quiet.',
+            self::KITTY => 'Meeeow.',
+            self::KITTY_2 => 'Meooow.',
+            self::BUG => 'Scary stuff.',
+            self::ACTUAL_NULL => 'Congrats! You found nothing...',
+            // RARE
+            self::LONGSWORD => 'It doesnt fit in your backpack, but looks cool.',
+            self::POINTER => 'This is how pointers in C really look like.',
+            self::INFINITE_LOOP => 'It goes on and on and on and on...',
+            self::CODING_HAT => 'Boosts your coding poweeer.',
+            self::MEMORY_LEAK => '',
+            self::BIGGER_BUG => 'Very scary stuff.',
+            // LEGENDARY
+            self::RAGING_GUY => 'He is mad!',
+            self::WIZARD => 'He loves casting spells.',
+            self::DUCKY_DUCK => 'Quack quack quack....',
+            self::HAPPY_GUY => 'He is having a great time!',
+            self::HUGE_CAT => 'The king of all cats.',
         };
     }
 }
