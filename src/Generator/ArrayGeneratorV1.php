@@ -20,13 +20,29 @@ class ArrayGeneratorV1
     }
 
     /**
-    * Builds random array with loot with various depth
+    * Builds random array + loot with various depth
     * @param Loot $loot
     * @param int $depth
     * @return array
     */
     private static function buildArray(Loot $loot, int $depth = 0): array
     {
-        //todo
+        $finalArray = [];
+        $currentArray = &$finalArray[];
+
+        for ($i = 0; $i < $depth; $i++) {
+            $randomKey = match(rand(1, 3)) {
+                1 => 'path_' . rand(1, 10),
+                2 => rand(1, 10),
+                3 => 'node_' . chr(rand(97, 122)),
+            };
+
+            $currentArray[$randomKey] = []; // passes to $finalArray
+            $currentArray = &$currentArray[$randomKey]; // move the drill further into array
+        }
+
+        $currentArray = $loot; // hide loot at the end of array
+
+        return $finalArray;
     }
 }
