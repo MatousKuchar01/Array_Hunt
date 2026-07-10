@@ -25,4 +25,18 @@ class LootGenerator
 
         return $pool[array_rand($pool)];
     }
+
+	/**
+     * Gets info about loot
+     * @param Loot $loot.
+     * @return array<int, string>
+     */
+    public static function getDropInfo(Loot $loot): array
+    {
+        return [
+            "Symbol: " . $loot->symbol() . "\n",
+            "Name: " . $loot->label() . "\n",
+            "Description: " . $loot->description() . "\n",
+        ];
+    }
 }
