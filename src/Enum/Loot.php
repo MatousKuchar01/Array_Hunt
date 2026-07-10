@@ -30,7 +30,7 @@ enum Loot
     case HAPPY_GUY;
     case HUGE_CAT;
 
-    **
+    /**
      * Returns item label
      * @return string
      */
@@ -63,7 +63,7 @@ enum Loot
         };
     }
 
-    **
+    /**
      * Returns item symbol
      * @return string
      */
@@ -96,7 +96,7 @@ enum Loot
         };
     }
 
-    **
+    /**
      * Returns item description
      * @return string
      */
@@ -129,7 +129,7 @@ enum Loot
         };
     }
 
-    **
+    /**
      * Returns items by rarity
      * @return array<string, string[]>
      */
