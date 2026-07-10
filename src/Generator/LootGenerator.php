@@ -6,6 +6,10 @@ use App\Enum\Loot;
 
 class LootGenerator
 {
+    /**
+    * Randomly drops a loot
+    * @return Loot
+    */
     public static function drop(): Loot
     {
         $lootTable = Loot::rarityTable();
