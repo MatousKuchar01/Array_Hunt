@@ -17,4 +17,12 @@ class Chest
     {
         return $this->loot;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getChest();
+    }
 }

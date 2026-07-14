@@ -1,22 +1,28 @@
 <?php
 
+// todo everywhere - declare(strict_types=1);
+
 namespace App\Generator;
 
-class ArrayGeneratorV1
+use App\Util\Chest;
+use App\Enum\Loot;
+use App\Generator\LootGenerator;
+
+class ArrayGenerator
 {
     public static function generateLevel1()
     {
-        return self::buildArray();
+        return self::buildArray(LootGenerator::drop(), depth: 3);
     }
 
     public static function generateLevel2()
     {
-        return self::buildArray();
+        return self::buildArray(LootGenerator::drop(), depth: 4);
     }
 
     public static function generateLevel3()
     {
-        return self::buildArray();
+        return self::buildArray(LootGenerator::drop(), depth: 5);
     }
 
     /**
@@ -28,7 +34,7 @@ class ArrayGeneratorV1
     private static function buildArray(Loot $loot, int $depth = 0): array
     {
         $finalArray = [];
-        $currentArray = &$finalArray[];
+        $currentArray = &$finalArray;
 
         for ($i = 0; $i < $depth; $i++) {
             $randomKey = match(rand(1, 3)) {
@@ -41,7 +47,7 @@ class ArrayGeneratorV1
             $currentArray = &$currentArray[$randomKey]; // move the drill further into array
         }
 
-        $currentArray = $loot; // hide loot at the end of array
+        $currentArray = new Chest($loot); // hide loot at the end of array
 
         return $finalArray;
     }
