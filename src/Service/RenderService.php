@@ -19,28 +19,14 @@ class RenderService
         $io->write("\033[2J\033[;H");
     }
 
-    public function renderIntroLevels()
-    {
-    	$maze = ArrayGenerator::generateLevel1();
-    	        
-        $displayMaze = $maze;
-
-    	array_walk_recursive($displayMaze, function (&$item) {
-			if ($item instanceof \App\Util\Chest) {
-  	                $item = (string) $item;
-   	            }
-	        });
-    	        
-        dump($displayMaze);
-    }
-
     public function renderAttempts(SymfonyStyle $io, int $attempts)
     {
 		$io->text(AppEnum::ATTEMPTS_TEXT->value . ' ' . string($attempts));    		
     }
 
-    public function renderUserAnswerField(SymfonyStyle $io): void
+    public function renderUserAnswerField(SymfonyStyle $io, callable $validator): string
     {
-       	$io->ask(AppEnum::PROMPT_USER->value); 	
+       	$answer = $io->ask(AppEnum::PROMPT_USER->value, null, $validator);
+       	return (string) $answer; 	
     }
 }

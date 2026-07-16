@@ -10,17 +10,17 @@ use App\Generator\LootGenerator;
 
 class ArrayGenerator
 {
-    public static function generateLevel1()
+    public static function generateFirstLevel()
     {
         return self::buildArray(LootGenerator::drop(), depth: 3);
     }
 
-    public static function generateLevel2()
+    public static function generateSecondLevel()
     {
         return self::buildArray(LootGenerator::drop(), depth: 4);
     }
 
-    public static function generateLevel3()
+    public static function generateThirdLevel()
     {
         return self::buildArray(LootGenerator::drop(), depth: 5);
     }
@@ -50,5 +50,18 @@ class ArrayGenerator
         $currentArray = new Chest($loot); // hide loot at the end of array
 
         return $finalArray;
+    }
+
+    public static function dumpLevel(array $level): array
+    {	        
+        $displayMaze = $level;
+    
+      	array_walk_recursive($displayMaze, function (&$item) {
+   			if ($item instanceof \App\Util\Chest) {
+                $item = (string) $item;
+           	}
+        });
+        	        
+        dump($displayMaze);
     }
 }
