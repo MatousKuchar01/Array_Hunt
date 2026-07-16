@@ -24,5 +24,5 @@ class Chest
     public function __toString(): string
     {
         return $this->getChest();
-    }
+    } 
 }
