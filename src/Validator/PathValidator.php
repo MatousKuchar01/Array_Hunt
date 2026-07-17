@@ -12,7 +12,7 @@ class PathValidator
 	{
 		$cleanInput = trim($userInput);
 
-		if (empty($userInput)) {
+		if (empty($cleanInput)) {
 			return null;
 		}
 

@@ -26,7 +26,7 @@ class GameCommand extends Command
         OutputInterface $output,
     ): int {
         $io = new SymfonyStyle($input, $output);
-        $this->gameEngine->play($io);
+        $this->engine->play($io);
         
         return Command::SUCCESS;
     }

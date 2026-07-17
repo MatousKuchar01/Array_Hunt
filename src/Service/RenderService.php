@@ -21,12 +21,18 @@ class RenderService
 
     public function renderAttempts(SymfonyStyle $io, int $attempts)
     {
-		$io->text(AppEnum::ATTEMPTS_TEXT->value . ' ' . string($attempts));    		
+		$io->text(AppEnum::ATTEMPTS_TEXT->value . ' ' . $attempts);    		
     }
 
     public function renderUserAnswerField(SymfonyStyle $io, callable $validator): string
     {
        	$answer = $io->ask(AppEnum::PROMPT_USER->value, null, $validator);
+
+		if (strtolower($answer) === AppEnum::EXIT->value) {
+	    	$io->warning(AppEnum::GOODBYE->value);
+		    exit;
+		}
+       	
        	return (string) $answer; 	
     }
 }

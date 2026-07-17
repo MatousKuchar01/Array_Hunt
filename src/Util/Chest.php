@@ -3,6 +3,7 @@
 namespace App\Util;
 
 use App\Enum\Loot;
+use App\Generator\LootGenerator;
 
 class Chest
 {
@@ -24,5 +25,22 @@ class Chest
     public function __toString(): string
     {
         return $this->getChest();
+    }
+
+    public static function isTargetChest($io, $target): bool
+    {
+    	if ($target instanceof self) {
+    		$loot = $target->open();
+    		$infoLines = LootGenerator::getDropInfo($loot);
+
+			foreach ($infoLines as $line) {
+				$io->write($line);
+			}
+
+    		return true;
+    	} else {
+    		$io->error(AppEnum::WRONG_TARGET->value);
+    		return false;
+    	}
     } 
 }
