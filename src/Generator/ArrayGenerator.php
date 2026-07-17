@@ -52,7 +52,7 @@ class ArrayGenerator
         return $finalArray;
     }
 
-    public static function dumpLevel(array $level): array
+    public static function dumpLevel(array $level): void
     {	        
         $displayMaze = $level;
     
