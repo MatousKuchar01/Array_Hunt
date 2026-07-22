@@ -31,16 +31,17 @@ class Chest
     {
     	if ($target instanceof self) {
     		$loot = $target->open();
-    		$infoLines = LootGenerator::getDropInfo($loot);
+    		$infoRows = LootGenerator::getDropInfo($loot);
 
-			foreach ($infoLines as $line) {
-				$io->write($line);
-			}
+            $io->table(
+                ['Property', 'Value'],
+                $infoRows
+            );
 
     		return true;
     	} else {
     		$io->error(AppEnum::WRONG_TARGET->value);
     		return false;
     	}
-    } 
+    }
 }
