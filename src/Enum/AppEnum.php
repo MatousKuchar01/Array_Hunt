@@ -25,6 +25,8 @@ enum AppEnum: string
 	case MISSED = 'You missed! Try again!';
 	case EXIT = 'exit';
 	case GOODBYE = 'You exited the game:( See you again....';
+	case EMPTY_PATH = 'Path cannot be empty!';
+	case GOODJOB = 'Great job knight! Press ENTER to continue to the next level...';
 
 	// misc
 	case ATTEMPTS_TEXT = 'Number of attempts:';

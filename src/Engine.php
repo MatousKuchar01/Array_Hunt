@@ -36,18 +36,37 @@ class Engine
 		foreach (self::$levels as $levelNumber => $generator) {
 		    $isLevelSolved = false;
 			$currentLevel = $generator();
-			$this->renderService->clearScreen($io);
-			$this->renderService->renderLevelHeading($io, $levelNumber);
+			$attempts = 0;
+			$lastMessage = null;
 
 			while (!$isLevelSolved) {
+			    $this->renderService->clearScreen($io);
+			    $this->renderService->renderLevelHeading($io, $levelNumber);
+				$this->renderService->renderAttempts($io, $attempts);
 			    ArrayGenerator::dumpLevel($currentLevel);
+
+				if (!is_null($lastMessage)) {
+					$io->error($lastMessage);
+					$lastMessage = null;
+				}
+
 				$userInput = $this->renderService->renderUserAnswerField($io, $this->createValidator($currentLevel));
+				$attempts++;
 			    $target = PathValidator::evaluateDotNotationPath($currentLevel, $userInput);
+
+				if (is_null($target)) {
+                    $lastMessage = AppEnum::MISSED->value;
+                    continue;
+				}
+
 			    $isLevelSolved = Chest::isTargetChest($io, $target);
 
 				if ($isLevelSolved) {
                     $io->newLine();
-                    $io->ask('Great job knight! Press ENTER to continue to the next level...');
+                    $io->ask(AppEnum::GOODJOB->value);
+                } else {
+                    $lastMessage = AppEnum::WRONG_TARGET->value;
+                    continue;
                 }
 			}
 		}
@@ -62,14 +81,12 @@ class Engine
         return function ($value) use ($currentLevel) {
             $clean = trim((string) $value);
 
-            if (strtolower($clean) === AppEnum::EXIT->value) {
-                return $clean;
+            if ($clean === '') {
+                throw new \InvalidArgumentException(AppEnum::EMPTY_PATH->value);
             }
 
-            $target = PathValidator::evaluateDotNotationPath($currentLevel, $clean);
-
-            if ($target === null) {
-                throw new \InvalidArgumentException(AppEnum::MISSED->value);
+            if (strtolower($clean) === AppEnum::EXIT->value) {
+                return $clean;
             }
 
             return $clean;
