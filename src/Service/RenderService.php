@@ -19,9 +19,19 @@ class RenderService
         $io->write("\033[2J\033[;H");
     }
 
+    public function renderLevelHeading(SymfonyStyle $io, int $levelNumber)
+    {
+        $io->section("--- LEVEL {$levelNumber} ---");
+    }
+
+    public function clearScreen(SymfonyStyle $io): void
+    {
+        $io->write("\033[2J\033[;H");
+    }
+
     public function renderAttempts(SymfonyStyle $io, int $attempts)
     {
-		$io->text(AppEnum::ATTEMPTS_TEXT->value . ' ' . $attempts);    		
+		$io->text(AppEnum::ATTEMPTS_TEXT->value . ' ' . $attempts);
     }
 
     public function renderUserAnswerField(SymfonyStyle $io, callable $validator): string
@@ -32,7 +42,7 @@ class RenderService
 	    	$io->warning(AppEnum::GOODBYE->value);
 		    exit;
 		}
-       	
-       	return (string) $answer; 	
+
+       	return (string) $answer;
     }
 }

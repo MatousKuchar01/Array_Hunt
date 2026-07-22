@@ -12,10 +12,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Engine
 {
-	/** @var bool */
-	protected static bool $isSolved = false;
-	/** @var int */
-	protected static int $attempts = 0;	
+	/** @var array */
+	protected static array $levels = [];
 
 	public function __construct(private RenderService $renderService) {}
 
@@ -26,31 +24,48 @@ class Engine
 	{
 		$this->renderService->renderIntro($io);
 
-		while (!self::$isSolved) {
-			// todo level 1 heading
-			$levelOne = ArrayGenerator::generateFirstLevel();
-			ArrayGenerator::dumpLevel($levelOne);
+		self::$levels = [
+            1 => fn() => ArrayGenerator::generateFirstLevel(),
+            2 => fn() => ArrayGenerator::generateSecondLevel(),
+            3 => fn() => ArrayGenerator::generateThirdLevel(),
+		];
 
-			// Definujeme validátor na míru aktuálnímu bludišti
-            $validator = function ($value) use ($levelOne) {
-            $clean = trim((string) $value);
-			
-            if (strtolower($clean) === 'exit') {
-                return $clean;
-            }
-			
-            $target = PathValidator::evaluateDotNotationPath($levelOne, $clean);
-               if ($target === null) {
-                  throw new \InvalidArgumentException(AppEnum::MISSED->value);
-            }
-			
-                return $clean;
-            };
+		foreach (self::$levels as $levelNumber => $generator) {
+		    $isLevelSolved = false;
+			$currentLevel = $generator();
+			$this->renderService->clearScreen($io);
+			$this->renderService->renderLevelHeading($io, $levelNumber);
 
-			$userInput = $this->renderService->renderUserAnswerField($io, $validator);
-			
-			$target = PathValidator::evaluateDotNotationPath($levelOne, $userInput);
-			Chest::isTargetChest($io, $target);
+			while (!$isLevelSolved) {
+			    ArrayGenerator::dumpLevel($currentLevel);
+				$userInput = $this->renderService->renderUserAnswerField($io, $this->createValidator($currentLevel));
+			    $target = PathValidator::evaluateDotNotationPath($currentLevel, $userInput);
+			    $isLevelSolved = Chest::isTargetChest($io, $target);
+
+				if ($isLevelSolved) {
+                    $io->newLine();
+                    $io->ask('Great job knight! Press ENTER to continue to the next level...');
+                }
+			}
 		}
+	}
+
+	private function createValidator(array $currentLevel): \Closure
+	{
+        return function ($value) use ($currentLevel) {
+            $clean = trim((string) $value);
+
+            if (strtolower($clean) === AppEnum::EXIT->value) {
+                return $clean;
+            }
+
+            $target = PathValidator::evaluateDotNotationPath($currentLevel, $clean);
+
+            if ($target === null) {
+                throw new \InvalidArgumentException(AppEnum::MISSED->value);
+            }
+
+            return $clean;
+        };
 	}
 }
