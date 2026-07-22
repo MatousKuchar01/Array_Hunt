@@ -13,7 +13,11 @@ enum AppEnum: string
         "You are the only knight in the realm who knows how to wield square\n" .
         "brackets <fg=cyan;options=bold>[]</> properly. Save the kingdom, find the loot,\n" .
         "and don't get <fg=red>lost</>!";
-        
+
+    case APP_TIPS = "<fg=gray>Tip: You can use both notation styles:</>\n"
+            . "<fg=gray>   • Dot notation:  <fg=white>path_1.nodes.2</></>\n"
+            . "<fg=gray>   • PHP syntax:    <fg=white>['path_1']['nodes'][2]</> or <fg=white>\$array['path_1'][2]</></>\n";
+
     case PRESS_ENTER_TO_START = 'Press [ENTER] to start hunting';
 
     // user

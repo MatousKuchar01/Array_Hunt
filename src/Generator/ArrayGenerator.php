@@ -1,6 +1,6 @@
 <?php
 
-// todo everywhere - declare(strict_types=1);
+declare(strict_types=1);
 
 namespace App\Generator;
 
@@ -10,17 +10,26 @@ use App\Generator\LootGenerator;
 
 class ArrayGenerator
 {
-    public static function generateFirstLevel()
+    /**
+     * @return array<string|int, mixed>
+     */
+    public static function generateFirstLevel(): array
     {
         return self::buildArray(LootGenerator::drop(), depth: 3);
     }
 
-    public static function generateSecondLevel()
+    /**
+     * @return array<string|int, mixed>
+     */
+    public static function generateSecondLevel(): array
     {
         return self::buildArray(LootGenerator::drop(), depth: 4);
     }
 
-    public static function generateThirdLevel()
+    /**
+     * @return array<string|int, mixed>
+     */
+    public static function generateThirdLevel(): array
     {
         return self::buildArray(LootGenerator::drop(), depth: 5);
     }
@@ -29,7 +38,7 @@ class ArrayGenerator
     * Builds random array + loot with various depth
     * @param Loot $loot
     * @param int $depth
-    * @return array
+    * @return array<string|int, mixed>
     */
     private static function buildArray(Loot $loot, int $depth = 0): array
     {
@@ -52,16 +61,20 @@ class ArrayGenerator
         return $finalArray;
     }
 
+    /**
+     * @param array<string|int, mixed> $level
+     * @return void
+     */
     public static function dumpLevel(array $level): void
-    {	        
+    {
         $displayMaze = $level;
-    
+
       	array_walk_recursive($displayMaze, function (&$item) {
    			if ($item instanceof \App\Util\Chest) {
                 $item = (string) $item;
            	}
         });
-        	        
+
         dump($displayMaze);
     }
 }

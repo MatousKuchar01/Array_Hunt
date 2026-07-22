@@ -12,10 +12,7 @@ use App\Engine;
 // php bin/console app:go
 #[AsCommand(name: "app:go", description: "Runs Array Hunt")]
 class GameCommand extends Command
-{	
-    /**
-     * @return T
-     */
+{
     public function __construct(private Engine $engine)
     {
         parent::__construct();
@@ -27,7 +24,7 @@ class GameCommand extends Command
     ): int {
         $io = new SymfonyStyle($input, $output);
         $this->engine->play($io);
-        
+
         return Command::SUCCESS;
     }
 }

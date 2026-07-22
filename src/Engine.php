@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
-use App\Enum\Loot;
 use App\Enum\AppEnum;
 use App\Generator\ArrayGenerator;
 use App\Validator\PathValidator;
@@ -12,14 +13,16 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Engine
 {
-	/** @var array */
+    /** @var array<int, callable(): array<string|int, mixed>> */
 	protected static array $levels = [];
 
 	public function __construct(private RenderService $renderService) {}
 
 	/**
-	* main game loop
-	*/
+	 * main game loop
+	 * @param SymfonyStyle $io
+     * @return void
+	 */
 	public function play(SymfonyStyle $io): void
 	{
 		$this->renderService->renderIntro($io);
@@ -50,6 +53,10 @@ class Engine
 		}
 	}
 
+	/**
+     * @param array<string|int, mixed> $currentLevel
+     * @return \Closure
+     */
 	private function createValidator(array $currentLevel): \Closure
 	{
         return function ($value) use ($currentLevel) {
