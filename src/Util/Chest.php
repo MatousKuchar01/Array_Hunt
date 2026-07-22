@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Util;
 
 use App\Enum\Loot;
@@ -9,11 +11,17 @@ class Chest
 {
     public function __construct(private Loot $loot) {}
 
+    /**
+     * @return string
+     */
     public function getChest(): string
     {
         return '[=X=]'; // $loot is hidden in this chest :o
     }
 
+    /**
+     * @return Loot
+     */
     public function open(): Loot
     {
         return $this->loot;
@@ -27,6 +35,11 @@ class Chest
         return $this->getChest();
     }
 
+    /**
+     * @param SymfonyStyle $io
+     * @param mixed $target
+     * @return bool
+     */
     public static function isTargetChest($io, $target): bool
     {
     	if ($target instanceof self) {
