@@ -6,6 +6,7 @@ namespace App\Util;
 
 use App\Enum\Loot;
 use App\Generator\LootGenerator;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Chest
 {
@@ -53,7 +54,6 @@ class Chest
 
     		return true;
     	} else {
-    		$io->error(AppEnum::WRONG_TARGET->value);
     		return false;
     	}
     }

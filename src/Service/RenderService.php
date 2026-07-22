@@ -50,6 +50,7 @@ class RenderService
     public function renderAttempts(SymfonyStyle $io, int $attempts): void
     {
 		$io->text(AppEnum::ATTEMPTS_TEXT->value . ' ' . $attempts);
+		$io->newLine();
     }
 
     /**
