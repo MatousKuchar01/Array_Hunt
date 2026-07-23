@@ -8,6 +8,7 @@ use App\Enum\AppEnum;
 use App\Generator\ArrayGenerator;
 use App\Validator\PathValidator;
 use App\Util\Chest;
+use App\Util\Knight;
 use App\Service\RenderService;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -32,6 +33,8 @@ class Engine
             2 => fn() => ArrayGenerator::generateSecondLevel(),
             3 => fn() => ArrayGenerator::generateThirdLevel(),
 		];
+
+		//$knight = new Knight();
 
 		foreach (self::$levels as $levelNumber => $generator) {
 		    $isLevelSolved = false;
