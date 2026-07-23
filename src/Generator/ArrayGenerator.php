@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Generator;
 
 use App\Util\Chest;
+use App\Util\Mimic;
 use App\Enum\Loot;
 use App\Generator\LootGenerator;
 
