@@ -35,11 +35,11 @@ class Knight
      */
     public static function convertHPToHearts(int $hp): string
     {
-        match ($hp) {
-            3 => '<3 <3 <3',
-            2 => '<3 <3',
-            1 => '<3',
-            default => ''
+        return match ($hp) {
+            3 => "<3 <3 <3",
+            2 => "<3 <3",
+            1 => "<3",
+            default => "",
         };
     }
 }

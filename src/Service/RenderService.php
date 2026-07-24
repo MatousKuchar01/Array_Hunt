@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Enum\AppEnum;
+use App\Util\Knight;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class RenderService
@@ -50,6 +51,17 @@ class RenderService
     public function renderAttempts(SymfonyStyle $io, int $attempts): void
     {
 		$io->text(AppEnum::ATTEMPTS_TEXT->value . ' ' . $attempts);
+		$io->newLine();
+    }
+
+    /**
+     * @param SymfonyStyle $io
+     * @param int $hp
+     * @return void
+     */
+    public function renderHP(SymfonyStyle $io, int $hp): void
+    {
+		$io->text(AppEnum::HP_TEXT->value . ' ' . Knight::convertHPToHearts($hp));
 		$io->newLine();
     }
 

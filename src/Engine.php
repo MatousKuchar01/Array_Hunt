@@ -8,6 +8,7 @@ use App\Enum\AppEnum;
 use App\Generator\ArrayGenerator;
 use App\Validator\PathValidator;
 use App\Util\Chest;
+use App\Util\Mimic;
 use App\Util\Knight;
 use App\Service\RenderService;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -34,7 +35,7 @@ class Engine
             3 => fn() => ArrayGenerator::generateThirdLevel(),
 		];
 
-		//$knight = new Knight();
+		$knight = new Knight();
 
 		foreach (self::$levels as $levelNumber => $generator) {
 		    $isLevelSolved = false;
@@ -46,6 +47,7 @@ class Engine
 			    $this->renderService->clearScreen($io);
 			    $this->renderService->renderLevelHeading($io, $levelNumber);
 				$this->renderService->renderAttempts($io, $attempts);
+				$this->renderService->renderHP($io, $knight->getHP());
 			    ArrayGenerator::dumpLevel($currentLevel);
 
 				if (!is_null($lastMessage)) {
@@ -59,6 +61,19 @@ class Engine
 
 				if (is_null($target)) {
                     $lastMessage = AppEnum::MISSED->value;
+                    continue;
+				}
+
+				$isTargetMimic = Mimic::isTargetMimic($io, $target, $knight);
+
+				if ($isTargetMimic) {
+                    if (!$knight->isAlive()) {
+                        $this->renderService->clearScreen($io);
+                        $io->error(AppEnum::GAME_OVER->value);
+                        return;
+                    }
+
+                    $lastMessage = AppEnum::MIMIC_DAMAGE->value;
                     continue;
 				}
 
