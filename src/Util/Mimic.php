@@ -26,7 +26,11 @@ class Mimic
         return $this->getChest();
     }
 
-    public function attack(Knight $knight)
+    /**
+     * @param Knight $knight
+     * @return void
+     */
+    public function attack(Knight $knight): void
     {
         $knight->takeDamage($this->chewingPower);
     }

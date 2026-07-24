@@ -130,6 +130,39 @@ enum Loot
     }
 
     /**
+     * Returns item rarity
+     * @return string
+     */
+    public function rarity(): string
+    {
+        return match ($this) {
+            // COMMON
+            self::COLD_COFFEE => '<>',
+            self::NOTHING => '<>',
+            self::FUNNY_GUY => '<>',
+            self::CONFUSED_GUY => '<>',
+            self::SLEEPING_GUY => '<>',
+            self::KITTY => '<>',
+            self::KITTY_2 => '<>',
+            self::BUG => '<>',
+            self::ACTUAL_NULL => '<>',
+            // RARE
+            self::LONGSWORD => '<> <>',
+            self::POINTER => '<> <>',
+            self::INFINITE_LOOP => '<> <>',
+            self::CODING_HAT => '<> <>',
+            self::MEMORY_LEAK => '<> <>',
+            self::BIGGER_BUG => '<> <>',
+            // LEGENDARY
+            self::RAGING_GUY => '<> <> <>',
+            self::WIZARD => '<> <> <>',
+            self::DUCKY_DUCK => '<> <> <>',
+            self::HAPPY_GUY => '<> <> <>',
+            self::HUGE_CAT => '<> <> <>',
+        };
+    }
+
+    /**
      * Returns items by rarity
      * @return array<string, string[]>
      */

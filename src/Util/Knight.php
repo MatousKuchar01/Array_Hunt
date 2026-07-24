@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Util;
 
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 class Knight
 {
     public int $hp = 3; // <3 <3 <3
@@ -41,5 +43,29 @@ class Knight
             1 => "<3",
             default => "",
         };
+    }
+
+    /**
+     * ascii art of knight body
+     * @see https://www.asciiart.eu/art/c2e8a00886ab6627
+     * @see https://www.asciiart.eu/people/occupations/knights
+     * @return void
+     */
+    public static function ascii(SymfonyStyle $io): void
+    {
+        $asciiArt = <<<ASCII
+            !
+           .-.
+         __|=|__
+        (_/`-`\_)
+        //\___/\\
+        <>/   \<>
+         \|_._|/
+          <_I_>
+           |||
+          /_|_\
+        ASCII;
+
+        $io->writeln($asciiArt);
     }
 }
