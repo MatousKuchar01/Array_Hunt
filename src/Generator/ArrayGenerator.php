@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Generator;
 
+use App\Enum\Map;
 use App\Util\Chest;
 use App\Util\Mimic;
 use App\Enum\Loot;
 use App\Generator\LootGenerator;
+use App\Util\Orc;
 
 class ArrayGenerator
 {
@@ -55,6 +57,8 @@ class ArrayGenerator
 
             if (rand(1, 100) <= 20) {
                 $currentArray[$sideKey] = new Mimic();
+            } elseif (rand(1, 100) <= 40) {
+                $currentArray[$sideKey] = new Orc(hasKey: true);
             } else {
                 $currentArray[$sideKey] = "[]";
             }
@@ -87,14 +91,16 @@ class ArrayGenerator
 
     /**
      * generates a random key
-     * @return int|string
+     * @return string
      */
-    private static function generateRandomKey(): int|string
+    private static function generateRandomKey(): string
     {
-        return match(rand(1, 3)) {
-            1 => 'path_' . rand(1, 10),
-            2 => rand(1, 10),
-            3 => 'node_' . chr(rand(97, 122)),
-        };
+        $prefixes = Map::getAllVariants();
+        $locations = Map::getAllTypes();
+
+        $prefix = $prefixes[array_rand($prefixes)];
+        $location = $locations[array_rand($locations)];
+
+        return $prefix . '_' . $location;
     }
 }
