@@ -67,6 +67,15 @@ class RenderService
 
     /**
      * @param SymfonyStyle $io
+     */
+    public function renderKnightAscii(SymfonyStyle $io): void
+    {
+        Knight::ascii($io);
+        $io->newLine();
+    }
+
+    /**
+     * @param SymfonyStyle $io
      * @param callable $validator
      * @return string
      */

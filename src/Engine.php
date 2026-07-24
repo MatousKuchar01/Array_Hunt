@@ -48,6 +48,7 @@ class Engine
 			    $this->renderService->renderLevelHeading($io, $levelNumber);
 				$this->renderService->renderAttempts($io, $attempts);
 				$this->renderService->renderHP($io, $knight->getHP());
+				$this->renderService->renderKnightAscii($io);
 			    ArrayGenerator::dumpLevel($currentLevel);
 
 				if (!is_null($lastMessage)) {
