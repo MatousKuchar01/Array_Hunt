@@ -8,7 +8,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Knight
 {
+    /** @var int */
     public int $hp = 3; // <3 <3 <3
+
+    /** @var boolean */
+    public bool $hasKey = false; // for opening the chest
 
     /** @return int */
     public function getHP(): int
@@ -29,6 +33,27 @@ class Knight
     public function takeDamage(int $amount): void
     {
         $this->hp -= $amount;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasKey(): bool
+    {
+        return $this->hasKey === true;
+    }
+
+    /**
+     * @return void
+     */
+    public function obtainKey(): void
+    {
+        $this->hasKey = true;
+    }
+
+    public function useKey()
+    {
+        //todo
     }
 
     /**
