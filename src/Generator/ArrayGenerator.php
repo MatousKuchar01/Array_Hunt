@@ -56,7 +56,7 @@ class ArrayGenerator
             if (rand(1, 100) <= 20) {
                 $currentArray[$sideKey] = new Mimic();
             } else {
-                $currentArray[$sideKey] = [];
+                $currentArray[$sideKey] = "[]";
             }
 
             $currentArray[$mainKey] = []; // passes to $finalArray
