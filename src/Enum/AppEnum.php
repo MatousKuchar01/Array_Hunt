@@ -27,8 +27,11 @@ enum AppEnum: string
 	case GOODBYE = 'You exited the game:( See you again....';
 	case EMPTY_PATH = 'Path cannot be empty!';
 	case GOODJOB = 'Great job knight! Press ENTER to continue to the next level...';
+	case GAME_OVER = 'You died! Game over...';
 
 	// misc
 	case ATTEMPTS_TEXT = 'Number of attempts:';
+	case HP_TEXT = 'HP:';
 	case WRONG_TARGET = 'Wrong target! You must find the chest!';
+	case MIMIC_DAMAGE = 'Aaaaargh! It was a Mimic and it bit you!';
 }

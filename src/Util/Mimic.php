@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Util;
 
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 class Mimic
 {
     public int $chewingPower = 1;
@@ -27,5 +29,20 @@ class Mimic
     public function attack(Knight $knight)
     {
         $knight->takeDamage($this->chewingPower);
+    }
+
+    /**
+     * @param SymfonyStyle $io
+     * @param mixed $target
+     * @return bool
+     */
+    public static function isTargetMimic(SymfonyStyle $io, mixed $target, Knight $knight): bool
+    {
+    	if ($target instanceof self) {
+            $target->attack($knight);
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 }
