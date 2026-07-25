@@ -51,9 +51,12 @@ class Knight
         $this->hasKey = true;
     }
 
-    public function useKey()
+    /**
+     * @return void
+     */
+    public function useKey(): void
     {
-        //todo
+        $this->hasKey = false;
     }
 
     /**

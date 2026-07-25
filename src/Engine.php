@@ -57,7 +57,7 @@ class Engine
 			    ArrayGenerator::dumpLevel($currentLevel);
 
 				if (!is_null($lastMessage)) {
-					$io->error($lastMessage);
+					$io->info($lastMessage);
 					$lastMessage = null;
 				}
 
@@ -86,17 +86,20 @@ class Engine
 				$isTargetOrc = Orc::isTargetOrc($target);
 
 				if ($isTargetOrc) {
-				    $this->duelService->duel($io, $knight, $target);
+				    $this->duelService->duel($io, $knight, $target, $lastMessage);
 					continue;
 				}
 
-			    $isLevelSolved = Chest::isTargetChest($io, $target);
+			    $isLevelSolved = Chest::isTargetChest($io, $target, $knight, $lastMessage);
 
 				if ($isLevelSolved) {
                     $io->newLine();
                     $io->ask(AppEnum::GOODJOB->value);
                 } else {
-                    $lastMessage = AppEnum::WRONG_TARGET->value;
+                    if (!$target instanceof Chest) {
+                        $lastMessage = AppEnum::WRONG_TARGET->value;
+                    }
+
                     continue;
                 }
 			}

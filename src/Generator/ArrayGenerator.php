@@ -67,7 +67,7 @@ class ArrayGenerator
             $currentArray = &$currentArray[$mainKey]; // move the drill further into array
         }
 
-        $currentArray = new Chest($loot); // hide loot at the end of array
+        $currentArray = new Chest($loot, isLocked: true); // hide loot at the end of array
 
         return $finalArray;
     }
