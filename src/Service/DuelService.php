@@ -11,7 +11,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DuelService
 {
-    public function duel(SymfonyStyle $io, Knight $knight, Orc $orc)
+    /**
+     * handles duel of knight vs orc
+     * @param SymfonyStyle $io
+     * @param Knight $knight
+     * @param Orc $orc
+     * @param string|null $lastMessage
+     * @return mixed
+     */
+    public function duel(SymfonyStyle $io, Knight $knight, Orc $orc, ?string &$lastMessage)
     {
         $duelOver = false;
 
@@ -26,9 +34,9 @@ class DuelService
             if (!$orc->isHitboxBlocked($knightAttackedHitbox)) {
                 if ($orc->hasKey()) {
                     $knight->obtainKey();
-                    $io->success(AppEnum::DUEL_WIN_PLUS_KEY->value);
+                    $lastMessage = AppEnum::DUEL_WIN_PLUS_KEY->value;
                 } else {
-                    $io->success(AppEnum::DUEL_WIN->value);
+                    $lastMessage = AppEnum::DUEL_WIN->value;
                 }
 
                 $duelOver = true;
@@ -43,6 +51,9 @@ class DuelService
      */
     private static function renderAttackCircle(SymfonyStyle $io): void
     {
+        $io->text(AppEnum::ORC_ENCOUNTER->value);
+        $io->newLine();
+
         $circle = <<<ASCII
                        [ TOP ]
                       /       \
