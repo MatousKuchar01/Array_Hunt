@@ -70,7 +70,7 @@ class Chest
             // chest is locked and knight does have the key
             if ($target->isLocked() && $knight->hasKey()) {
                 $knight->useKey();
-                $lastMessage = AppEnum::CHEST_KEY_USED->value;
+                $io->note(AppEnum::CHEST_KEY_USED->value);
             }
 
     		$loot = $target->open();

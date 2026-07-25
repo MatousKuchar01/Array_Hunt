@@ -38,6 +38,8 @@ class Engine
             1 => fn() => ArrayGenerator::generateFirstLevel(),
             2 => fn() => ArrayGenerator::generateSecondLevel(),
             3 => fn() => ArrayGenerator::generateThirdLevel(),
+            4 => fn() => ArrayGenerator::generateFourthLevel(),
+            5 => fn() => ArrayGenerator::generateFifthLevel(),
 		];
 
 		$knight = new Knight();
