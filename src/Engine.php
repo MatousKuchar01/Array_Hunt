@@ -10,7 +10,9 @@ use App\Validator\PathValidator;
 use App\Util\Chest;
 use App\Util\Mimic;
 use App\Util\Knight;
+use App\Util\Orc;
 use App\Service\RenderService;
+use App\Service\DuelService;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Engine
@@ -18,7 +20,10 @@ class Engine
     /** @var array<int, callable(): array<string|int, mixed>> */
 	protected static array $levels = [];
 
-	public function __construct(private RenderService $renderService) {}
+	public function __construct(
+	    private RenderService $renderService,
+		private DuelService $duelService
+	) {}
 
 	/**
 	 * main game loop
@@ -76,6 +81,13 @@ class Engine
 
                     $lastMessage = AppEnum::MIMIC_DAMAGE->value;
                     continue;
+				}
+
+				$isTargetOrc = Orc::isTargetOrc($target);
+
+				if ($isTargetOrc) {
+				    $this->duelService->duel($io, $knight, $target);
+					continue;
 				}
 
 			    $isLevelSolved = Chest::isTargetChest($io, $target);
