@@ -39,7 +39,7 @@ enum AppEnum: string
 
 	// duel
 	case ORC_ENCOUNTER = 'You encountered Orc! Fight him!';
-	case DUEL_WIN = 'You defeated the Orc! Well done!';
+	case DUEL_WIN = 'You defeated the Orc! Well done! His pockets are empty...';
 	case DUEL_WIN_PLUS_KEY = 'You defeated the Orc! Well done! You looted a key from him!';
 	case DUEL_CHOOSE_ATTACK_DIRECTION = 'Choose your attack direction (TOP, LEFT, RIGHT, B_LEFT, B_RIGHT, STAB)';
 }

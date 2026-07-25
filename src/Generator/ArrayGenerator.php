@@ -18,7 +18,7 @@ class ArrayGenerator
      */
     public static function generateFirstLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 3);
+        return self::buildArray(LootGenerator::drop(), depth: 1);
     }
 
     /**
@@ -26,7 +26,7 @@ class ArrayGenerator
      */
     public static function generateSecondLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 4);
+        return self::buildArray(LootGenerator::drop(), depth: 2);
     }
 
     /**
@@ -34,19 +34,38 @@ class ArrayGenerator
      */
     public static function generateThirdLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 5);
+        return self::buildArray(LootGenerator::drop(), depth: 3);
+    }
+
+    /**
+     * @return array<string|int, mixed>
+     */
+    public static function generateFourthLevel(): array
+    {
+        return self::buildArray(LootGenerator::drop(), depth: 3, isLocked: true);
+    }
+
+    /**
+     * @return array<string|int, mixed>
+     */
+    public static function generateFifthLevel(): array
+    {
+        return self::buildArray(LootGenerator::drop(), depth: 4, isLocked: true);
     }
 
     /**
     * Builds random array + loot with various depth
     * @param Loot $loot
     * @param int $depth
+    * @param bool $isLocked
     * @return array<string|int, mixed>
     */
-    private static function buildArray(Loot $loot, int $depth = 0): array
+    private static function buildArray(Loot $loot, int $depth = 0, bool $isLocked = false): array
     {
         $finalArray = [];
         $currentArray = &$finalArray;
+
+        $keySpawnDepth = $isLocked ? rand(0, $depth - 1) : - 1;
 
         for ($i = 0; $i < $depth; $i++) {
             $mainKey = self::generateRandomKey();
@@ -55,19 +74,25 @@ class ArrayGenerator
                 $sideKey = self::generateRandomKey();
             } while ($mainKey === $sideKey);
 
-            if (rand(1, 100) <= 20) {
-                $currentArray[$sideKey] = new Mimic();
-            } elseif (rand(1, 100) <= 40) {
+            if ($i === $keySpawnDepth) {
                 $currentArray[$sideKey] = new Orc(hasKey: true);
             } else {
-                $currentArray[$sideKey] = "[]";
+                $roll = rand(1, 100);
+
+                if ($roll <= 20) {
+                    $currentArray[$sideKey] = new Mimic();
+                } elseif ($isLocked && $roll <= 40) {
+                    $currentArray[$sideKey] = new Orc(hasKey: false);
+                } else {
+                    $currentArray[$sideKey] = "[]";
+                }
             }
 
             $currentArray[$mainKey] = []; // passes to $finalArray
             $currentArray = &$currentArray[$mainKey]; // move the drill further into array
         }
 
-        $currentArray = new Chest($loot, isLocked: true); // hide loot at the end of array
+        $currentArray = new Chest($loot, isLocked: $isLocked); // hide loot at the end of array
 
         return $finalArray;
     }
