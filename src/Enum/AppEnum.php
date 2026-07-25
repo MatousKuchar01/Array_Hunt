@@ -34,4 +34,9 @@ enum AppEnum: string
 	case HP_TEXT = 'HP:';
 	case WRONG_TARGET = 'Wrong target! You must find the chest!';
 	case MIMIC_DAMAGE = 'Aaaaargh! It was a Mimic and it bit you!';
+
+	// duel
+	case DUEL_WIN = 'You defeated the Orc! Well done!';
+	case DUEL_WIN_PLUS_KEY = 'You defeated the Orc! Well done! You looted a key from him!';
+	case DUEL_CHOOSE_ATTACK_DIRECTION = 'Choose your attack direction (TOP, LEFT, RIGHT, B_LEFT, B_RIGHT, STAB)';
 }
