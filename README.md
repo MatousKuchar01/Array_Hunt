@@ -17,7 +17,6 @@ Make sure you have installed:
 
 ## Quick Start
 
-### 1. Clone the repo
 ```bash
 git clone https://github.com/MatousKuchar01/Array_Hunt.git
 cd array_hunt
