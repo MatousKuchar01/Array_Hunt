@@ -18,7 +18,7 @@ class ArrayGenerator
      */
     public static function generateFirstLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 1);
+        return self::buildArray(LootGenerator::drop(level: 1), depth: 1);
     }
 
     /**
@@ -26,7 +26,7 @@ class ArrayGenerator
      */
     public static function generateSecondLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 2);
+        return self::buildArray(LootGenerator::drop(level: 2), depth: 2);
     }
 
     /**
@@ -34,7 +34,7 @@ class ArrayGenerator
      */
     public static function generateThirdLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 3);
+        return self::buildArray(LootGenerator::drop(level: 3), depth: 3);
     }
 
     /**
@@ -42,7 +42,7 @@ class ArrayGenerator
      */
     public static function generateFourthLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 3, isLocked: true);
+        return self::buildArray(LootGenerator::drop(level: 4), depth: 3, isLocked: true);
     }
 
     /**
@@ -50,7 +50,7 @@ class ArrayGenerator
      */
     public static function generateFifthLevel(): array
     {
-        return self::buildArray(LootGenerator::drop(), depth: 4, isLocked: true);
+        return self::buildArray(LootGenerator::drop(level: 5), depth: 4, isLocked: true);
     }
 
     /**
