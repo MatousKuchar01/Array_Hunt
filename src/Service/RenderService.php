@@ -124,4 +124,20 @@ class RenderService
             "Remaining HP: " . Knight::convertHPToHearts($knight->getHP()),
         ]);
     }
+
+    /**
+     * user can choose look of his levels
+     * @param SymfonyStyle $io
+     * @return string
+     */
+    public function renderDumpChoice(SymfonyStyle $io): string
+    {
+        return $io->choice(AppEnum::DUMP_MODE->value,
+            [
+                'tree' => AppEnum::DUMP_MODE_TREE->value,
+                'dump' => AppEnum::DUMP_MODE_RAW->value
+            ],
+            'tree'
+        );
+    }
 }
