@@ -19,7 +19,7 @@ Make sure you have installed:
 
 ### 1. Clone the repo
 ```bash
-git clone 
+git clone https://github.com/MatousKuchar01/Array_Hunt.git
 cd array_hunt
 composer install
 php bin/console app:play
