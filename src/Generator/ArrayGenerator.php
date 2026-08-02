@@ -105,13 +105,61 @@ class ArrayGenerator
     {
         $displayMaze = $level;
 
-      	array_walk_recursive($displayMaze, function (&$item) {
-   			if (is_object($item) && method_exists($item, '__toString')) {
+        array_walk_recursive($displayMaze, function (&$item) {
+           	if (is_object($item) && method_exists($item, '__toString')) {
                 $item = (string) $item;
-           	}
+            }
         });
 
         dump($displayMaze);
+    }
+
+    /**
+     * Custom tree dumper for dungeon array with colors and ASCII structure.
+     *
+     * @param array<string|int, mixed> $level
+     * @param string $prefix Used internally for recursive indentation formatting
+     * @return void
+     */
+    public static function dumpLevelTree(array $level, string $prefix = ''): void
+    {
+        $keys = array_keys($level);
+        $totalKeys = count($keys);
+
+        foreach ($keys as $index => $key) {
+            $value = $level[$key];
+            $isLast = ($index === $totalKeys - 1);
+            $marker = $isLast ? '└── ' : '├── ';
+
+            if (is_array($value)) {
+                echo $prefix . $marker . "\033[36m" . $key . "\033[0m" . PHP_EOL;
+
+                $newPrefix = $prefix . ($isLast ? '    ' : '│   ');
+                self::dumpLevelTree($value, $newPrefix);
+            } else {
+                $formattedValue = self::formatTargetValue($value);
+                echo $prefix . $marker . "\033[90m" . $key . ":\033[0m " . $formattedValue . PHP_EOL;
+            }
+        }
+    }
+
+    /**
+     * Helper to apply ANSI colors based on entity type.
+     * @param mixed $value
+     * @return string
+     */
+    private static function formatTargetValue(mixed $value): string
+    {
+        $stringValue = (string) $value;
+
+        return match (true) {
+            $value instanceof Chest => "\033[1;33m" . $stringValue . "\033[0m", // Yellow
+            $value instanceof Orc => "\033[1;31m" . $stringValue . "\033[0m", // Bold Red
+            $value instanceof Mimic => "\033[0;31m" . $stringValue . "\033[0m", // Red
+            //$value instanceof Altar => "\033[1;35m" . $stringValue . "\033[0m", // Bold purple
+            //$value instanceof Fountain => "\033[1;36m" . $stringValue . "\033[0m", // Light blue
+            default => "\033[90m" . $stringValue . "\033[0m", // Grey for basic "[]"
+        };
     }
 
     /**

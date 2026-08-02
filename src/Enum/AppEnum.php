@@ -19,6 +19,9 @@ enum AppEnum: string
             . "<fg=gray>   • PHP syntax:    <fg=white>['path_1']['nodes'][2]</> or <fg=white>\$array['path_1'][2]</></>\n";
 
     case PRESS_ENTER_TO_START = 'Press [ENTER] to start hunting';
+    case DUMP_MODE = 'Choose your preferred Dungeon Map view mode';
+    case DUMP_MODE_TREE = 'Pretty Tree View (Clean & Colored)';
+    case DUMP_MODE_RAW = 'Raw PHP Array View (Classic)';
 
     // user
 	case PROMPT_USER = 'Type path to chest...';

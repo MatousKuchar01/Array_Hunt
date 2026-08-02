@@ -33,6 +33,7 @@ class Engine
 	public function play(SymfonyStyle $io): void
 	{
 		$this->renderService->renderIntro($io);
+		$dumpChoice = $this->renderService->renderDumpChoice($io);
 
 		self::$levels = [
             1 => fn() => ArrayGenerator::generateFirstLevel(),
@@ -56,7 +57,12 @@ class Engine
 				$this->renderService->renderAttempts($io, $attempts);
 				$this->renderService->renderHP($io, $knight->getHP());
 				$this->renderService->renderKnightAscii($io);
-			    ArrayGenerator::dumpLevel($currentLevel);
+
+				if ($dumpChoice == 'tree') {
+			        ArrayGenerator::dumpLevelTree($currentLevel);
+				} else {
+				    ArrayGenerator::dumpLevel($currentLevel);
+				}
 
 				if (!is_null($lastMessage)) {
 					$io->info($lastMessage);
