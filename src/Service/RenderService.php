@@ -90,4 +90,38 @@ class RenderService
 
        	return (string) $answer;
     }
+
+    /**
+     * renders victory screen after completing the game
+     * @see https://www.asciiart.eu/art/85bb891925be4475
+     * @param SymfonyStyle $io
+     * @param Knight $knight
+     * @return void
+     */
+    public function renderVictory(SymfonyStyle $io, Knight $knight): void
+    {
+        $trophyAscii = <<<ASCII
+        _   _   _   _+       |
+       /_`-'_`-'_`-'_|  \+/  |
+       \_`M'_`D'_`C'_| _<=>_ |
+         `-' `-' `-' 0/ \ / o=o
+                     \/\ ^ /`0
+                     | /_^_\
+                     | || ||
+                   __|_d|_|b__
+    ASCII;
+
+        $io->writeln($trophyAscii);
+        $io->newLine();
+
+        $io->title(AppEnum::VICTORY->value);
+
+        $io->text([
+            "You navigated through all 5 levels, defeated the Orcs,",
+            "got the loot, and avoided the Mimics!",
+            "",
+            "Final Status:",
+            "Remaining HP: " . Knight::convertHPToHearts($knight->getHP()),
+        ]);
+    }
 }
