@@ -106,6 +106,9 @@ class Engine
                 }
 			}
 		}
+
+		$this->renderService->clearScreen($io);
+        $this->renderService->renderVictory($io, $knight); // end of the game
 	}
 
 	/**

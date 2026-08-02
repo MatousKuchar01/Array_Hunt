@@ -9,9 +9,9 @@ enum AppEnum: string
     case APP_DESCRIPTION = '<fg=white;options=bold>CLI minigame for programmers who want to sharpen their array accessing skills.</>';
     case STORY_DESCRIPTION = "Evil orcs have stolen the royal treasure and hidden it so well\n" .
         "that even the finest scouts cannot track it down. They have locked it\n" .
-        "deep inside... an <fg=yellow;options=bold>Associative Array</>!\n\n" .
-        "You are the only knight in the realm who knows how to wield square\n" .
-        "brackets <fg=cyan;options=bold>[]</> properly. Save the kingdom, find the loot,\n" .
+        "deep inside... an <fg=yellow;options=bold>Array</>!\n\n" .
+        "You are the only knight in the realm who knows how to navigate those\n" .
+        "<fg=cyan;options=bold>data fields</> properly. Save the kingdom, find the loot,\n" .
         "and don't get <fg=red>lost</>!";
 
     case APP_TIPS = "<fg=gray>Tip: You can use both notation styles:</>\n"
@@ -28,6 +28,7 @@ enum AppEnum: string
 	case EMPTY_PATH = 'Path cannot be empty!';
 	case GOODJOB = 'Great job knight! Press ENTER to continue to the next level...';
 	case GAME_OVER = 'You died! Game over...';
+	case VICTORY = 'VICTORY! YOU HAVE CONQUERED THE DUNGEON!';
 
 	// misc
 	case ATTEMPTS_TEXT = 'Number of attempts:';
