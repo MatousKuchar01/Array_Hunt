@@ -1,4 +1,4 @@
-# PHP CLI Dungeon Crawler
+# Array_Hunt() - PHP CLI Dungeon Crawler
 
 Minigame built with **PHP 8.2+** and **Symfony Console**. 
 
