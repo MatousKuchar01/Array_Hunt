@@ -73,7 +73,13 @@ class Chest
                 $io->note(AppEnum::CHEST_KEY_USED->value);
             }
 
-            $loot = $target->open();
+            if ($knight->hasLootBuff) {
+                $loot = LootGenerator::dropGuaranteedRarity('legendary');
+                $knight->hasLootBuff = false;
+            } else {
+                $loot = $target->open();
+            }
+
             $knight->addLootToInventory($loot);
             $infoRows = LootGenerator::getDropInfo($loot);
 

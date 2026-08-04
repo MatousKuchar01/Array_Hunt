@@ -13,6 +13,8 @@ class Knight
     public int $hp = 3; // <3 <3 <3
     /** @var boolean */
     public bool $hasKey = false; // for opening the chest
+    /** @var boolean */
+    public bool $hasLootBuff = false; // automatic legendary
     /** @var array<Loot> */
     public array $inventory = []; // all collected loot
 
@@ -64,10 +66,9 @@ class Knight
     /**
      * adds Loot object to inventory
      * @param Loot $loot
-     * @param int $level
      * @return void
      */
-    public function addLootToInventory(Loot $loot, int $level = 1): void
+    public function addLootToInventory(Loot $loot): void
     {
         $this->inventory[] = $loot;
     }

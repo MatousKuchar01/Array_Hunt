@@ -46,4 +46,10 @@ enum AppEnum: string
 	case DUEL_WIN = 'You defeated the Orc! Well done! His pockets are empty...';
 	case DUEL_WIN_PLUS_KEY = 'You defeated the Orc! Well done! You looted a key from him!';
 	case DUEL_CHOOSE_ATTACK_DIRECTION = 'Choose your attack direction (TOP, LEFT, RIGHT, B_LEFT, B_RIGHT, STAB)';
+
+	//altar
+	case ALTAR_NOTHING = 'Altar did nothing...';
+	case ALTAR_GRANTED_KEY = 'Lucky you! Altar gave you the key to the chest!';
+	case ALTAR_QUIT = 'Scared? Hahahah....';
+	case ALTAR_BUFF_LOOT = 'Altar shined with golden light! Your next loot will be gooooood.....';
 }

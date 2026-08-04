@@ -45,6 +45,19 @@ class LootGenerator
         return $pool[array_rand($pool)];
     }
 
+    /**
+    * drops a random loot of given rarity
+    * @param string $rarity
+    * @return Loot
+    */
+    public static function dropGuaranteedRarity(string $rarity): Loot
+    {
+        $lootTable = Loot::rarityTable();
+        $pool = $lootTable[$rarity];
+
+        return $pool[array_rand($pool)];
+    }
+
 	/**
      * Gets info about loot
      * @param Loot $loot.
