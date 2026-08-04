@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace App\Util;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
+use App\Enum\Loot;
 
 class Knight
 {
     /** @var int */
     public int $hp = 3; // <3 <3 <3
-
     /** @var boolean */
     public bool $hasKey = false; // for opening the chest
+    /** @var array<Loot> */
+    public array $inventory = []; // all collected loot
 
     /** @return int */
     public function getHP(): int
@@ -57,6 +59,25 @@ class Knight
     public function useKey(): void
     {
         $this->hasKey = false;
+    }
+
+    /**
+     * adds Loot object to inventory
+     * @param Loot $loot
+     * @param int $level
+     * @return void
+     */
+    public function addLootToInventory(Loot $loot, int $level = 1): void
+    {
+        $this->inventory[] = $loot;
+    }
+
+    /**
+     * @return array<Loot>
+     */
+    public function getInventory(): array
+    {
+        return $this->inventory;
     }
 
     /**

@@ -121,8 +121,22 @@ class RenderService
             "got the loot, and avoided the Mimics!",
             "",
             "Final Status:",
-            "Remaining HP: " . Knight::convertHPToHearts($knight->getHP()),
+            "Remaining HP: " . Knight::convertHPToHearts($knight->getHP())
         ]);
+
+        $rows = [];
+
+        foreach ($knight->getInventory() as $index => $loot) {
+            $rows[] = [
+                $index + 1,
+                $loot->symbol(),
+                $loot->label(),
+                $loot->rarity()
+            ];
+        }
+
+        $io->section("COLLECTED LOOT");
+        $io->table(['Level', 'Symbol', 'Name', 'Rarity'], $rows);
     }
 
     /**
