@@ -73,8 +73,9 @@ class Chest
                 $io->note(AppEnum::CHEST_KEY_USED->value);
             }
 
-    		$loot = $target->open();
-    		$infoRows = LootGenerator::getDropInfo($loot);
+            $loot = $target->open();
+            $knight->addLootToInventory($loot);
+            $infoRows = LootGenerator::getDropInfo($loot);
 
             $io->table(
                 ['Property', 'Value'],
