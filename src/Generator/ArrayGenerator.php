@@ -10,6 +10,7 @@ use App\Util\Mimic;
 use App\Enum\Loot;
 use App\Generator\LootGenerator;
 use App\Util\Orc;
+use App\Util\Altar;
 
 class ArrayGenerator
 {
@@ -66,6 +67,13 @@ class ArrayGenerator
         $currentArray = &$finalArray;
 
         $keySpawnDepth = $isLocked ? rand(0, $depth - 1) : - 1;
+        $altarSpawnDepth = -1;
+
+        if ($isLocked && rand(1, 100) <= 60) {
+            do {
+                $altarSpawnDepth = rand(0, $depth - 1);
+            } while ($altarSpawnDepth === $keySpawnDepth && $depth > 1);
+        }
 
         for ($i = 0; $i < $depth; $i++) {
             $mainKey = self::generateRandomKey();
@@ -76,6 +84,8 @@ class ArrayGenerator
 
             if ($i === $keySpawnDepth) {
                 $currentArray[$sideKey] = new Orc(hasKey: true);
+            } elseif ($i === $altarSpawnDepth) {
+                $currentArray[$sideKey] = new Altar(); // max 1 altar in a level
             } else {
                 $roll = rand(1, 100);
 
@@ -156,7 +166,7 @@ class ArrayGenerator
             $value instanceof Chest => "\033[1;33m" . $stringValue . "\033[0m", // Yellow
             $value instanceof Orc => "\033[1;31m" . $stringValue . "\033[0m", // Bold Red
             $value instanceof Mimic => "\033[0;31m" . $stringValue . "\033[0m", // Red
-            //$value instanceof Altar => "\033[1;35m" . $stringValue . "\033[0m", // Bold purple
+            $value instanceof Altar => "\033[1;35m" . $stringValue . "\033[0m", // Bold purple
             //$value instanceof Fountain => "\033[1;36m" . $stringValue . "\033[0m", // Light blue
             default => "\033[90m" . $stringValue . "\033[0m", // Grey for basic "[]"
         };

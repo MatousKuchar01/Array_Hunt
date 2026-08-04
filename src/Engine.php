@@ -11,8 +11,10 @@ use App\Util\Chest;
 use App\Util\Mimic;
 use App\Util\Knight;
 use App\Util\Orc;
+use App\Util\Altar;
 use App\Service\RenderService;
 use App\Service\DuelService;
+use App\Service\ObjectService;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Engine
@@ -22,7 +24,8 @@ class Engine
 
 	public function __construct(
 	    private RenderService $renderService,
-		private DuelService $duelService
+		private DuelService $duelService,
+		private ObjectService $objectService
 	) {}
 
 	/**
@@ -96,6 +99,13 @@ class Engine
 				if ($isTargetOrc) {
 				    $this->duelService->duel($io, $knight, $target, $lastMessage);
 					continue;
+				}
+
+				$isTargetAltar = Altar::isTargetAltar($target);
+
+				if ($isTargetAltar) {
+                    $this->objectService->altar($io, $knight, $target, $lastMessage);
+                    continue;
 				}
 
 			    $isLevelSolved = Chest::isTargetChest($io, $target, $knight, $lastMessage);
