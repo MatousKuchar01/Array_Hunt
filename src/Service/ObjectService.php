@@ -7,6 +7,7 @@ namespace App\Service;
 use App\Enum\AppEnum;
 use App\Util\Knight;
 use App\Util\Altar;
+use App\Util\Fountain;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ObjectService
@@ -17,7 +18,7 @@ class ObjectService
      * @param Knight $knight
      * @param Altar $altar
      * @param string|null $lastMessage
-     * @return todo
+     * @return void
      */
     public function altar(SymfonyStyle $io, Knight $knight, Altar $altar, ?string &$lastMessage)
     {
@@ -45,6 +46,45 @@ class ObjectService
     }
 
     /**
+     * handles interaction with fountain
+     * @param SymfonyStyle $io
+     * @param Knight $knight
+     * @param Fountain $fountain
+     * @param string|null $lastMessage
+     * @return void
+     */
+    public function fountain(SymfonyStyle $io, Knight $knight, Fountain $fountain, ?string &$lastMessage)
+    {
+        self::renderFountainAscii($io);
+
+        if ($fountain->isUsed()) {
+            $lastMessage = AppEnum::FOUNTAIN_USED->value;
+            return;
+        }
+
+        $answer = $io->confirm('Do you want to drink from the fountain?', false);
+        $roll = rand(1, 100);
+
+        if ($answer) {
+            $fountain->markAsUsed();
+
+            if ($roll <= 80) {
+                $knight->heal(1);
+                $lastMessage = AppEnum::FOUNTAIN_HEAL->value;
+            } else {
+                $knight->takeDamage(1);
+                $lastMessage = AppEnum::FOUNTAIN_POISON->value;
+
+                if (!$knight->isAlive()) {
+                    return;
+                }
+            }
+        } else {
+            $lastMessage = AppEnum::FOUNTAIN_QUIT->value;
+        }
+    }
+
+    /**
      * renders altar ascii
      * @see https://patorjk.com/software/taag/#p=display&f=Alligator2&t=altar&x=none&v=4&h=4&w=80&we=false
      * @return void
@@ -60,6 +100,26 @@ class ObjectService
     #+#     #+# #+#        #+# #+#     #+# #+#    #+#
     ###     ### ########## ### ###     ### ###    ###
 ASCII;
+
+        $io->writeln($asciiArt);
+    }
+
+    /**
+     * renders altar ascii
+     * @see https://patorjk.com/software/taag/#p=display&f=The+Edge&t=Fountain&x=none&v=4&h=4&w=80&we=false
+     * @return void
+     */
+    public static function renderFountainAscii(SymfonyStyle $io): void
+    {
+        $asciiArt = <<<ASCII
+        ▄████  ████▄   ▄      ▄     ▄▄▄▄▀ ██   ▄█    ▄
+        █▀   ▀ █   █    █      █ ▀▀▀ █    █ █  ██     █
+        █▀▀    █   █ █   █ ██   █    █    █▄▄█ ██ ██   █
+        █      ▀████ █   █ █ █  █   █     █  █ ▐█ █ █  █
+         █           █▄ ▄█ █  █ █  ▀         █  ▐ █  █ █
+          ▀           ▀▀▀  █   ██           █     █   ██
+                                           ▀
+    ASCII;
 
         $io->writeln($asciiArt);
     }

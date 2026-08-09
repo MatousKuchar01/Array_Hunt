@@ -12,6 +12,7 @@ use App\Util\Mimic;
 use App\Util\Knight;
 use App\Util\Orc;
 use App\Util\Altar;
+use App\Util\Fountain;
 use App\Service\RenderService;
 use App\Service\DuelService;
 use App\Service\ObjectService;
@@ -44,6 +45,7 @@ class Engine
             3 => fn() => ArrayGenerator::generateThirdLevel(),
             4 => fn() => ArrayGenerator::generateFourthLevel(),
             5 => fn() => ArrayGenerator::generateFifthLevel(),
+            6 => fn() => ArrayGenerator::generateSixthLevel(),
 		];
 
 		$knight = new Knight();
@@ -105,6 +107,13 @@ class Engine
 
 				if ($isTargetAltar) {
                     $this->objectService->altar($io, $knight, $target, $lastMessage);
+                    continue;
+				}
+
+				$isTargetFountain = Fountain::isTargetFountain($target);
+
+				if ($isTargetFountain) {
+                    $this->objectService->fountain($io, $knight, $target, $lastMessage);
                     continue;
 				}
 
