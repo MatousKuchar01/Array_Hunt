@@ -15,6 +15,8 @@ class Knight
     public bool $hasKey = false; // for opening the chest
     /** @var boolean */
     public bool $hasLootBuff = false; // automatic legendary
+    /** @var int */
+    public int $goldMultiplier = 1; // multiplies looted gold:)
     /** @var array<Loot> */
     public array $inventory = []; // all collected loot
 
@@ -79,6 +81,21 @@ class Knight
     public function getInventory(): array
     {
         return $this->inventory;
+    }
+
+    /**
+     * returns total gold from loot times multiplier (if there is any)
+     * @return int
+     */
+    public function getLootedGold(): int
+    {
+        $totalGold = 0;
+
+        foreach ($this->inventory as $loot) {
+             $totalGold += $loot->goldValue();
+        }
+
+        return $totalGold * $this->goldMultiplier;
     }
 
     /**

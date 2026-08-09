@@ -53,6 +53,17 @@ class Altar
     }
 
     /**
+     * @param Knight $knight
+     * @param string|null $lastMessage
+     * @return void
+     */
+    public function doubleLootGold(Knight $knight, ?string &$lastMessage): void
+    {
+        $knight->goldMultiplier *= 2;
+        $lastMessage = AppEnum::ALTAR_BUFF_GOLD->value;
+    }
+
+    /**
      * @param mixed $target
      * @return bool
      */

@@ -52,4 +52,5 @@ enum AppEnum: string
 	case ALTAR_GRANTED_KEY = 'Lucky you! Altar gave you the key to the chest!';
 	case ALTAR_QUIT = 'Scared? Hahahah....';
 	case ALTAR_BUFF_LOOT = 'Altar shined with golden light! Your next loot will be gooooood.....';
+	case ALTAR_BUFF_GOLD = 'Altar blessed your loot. Its worth increased.';
 }

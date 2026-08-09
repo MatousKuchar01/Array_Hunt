@@ -126,17 +126,21 @@ class RenderService
 
         $rows = [];
 
+        $lootedValue = $knight->getLootedGold();
+
         foreach ($knight->getInventory() as $index => $loot) {
             $rows[] = [
                 $index + 1,
                 $loot->symbol(),
                 $loot->label(),
-                $loot->rarity()
+                $loot->rarity(),
+                $loot->goldValue(),
             ];
         }
 
         $io->section("COLLECTED LOOT");
-        $io->table(['Level', 'Symbol', 'Name', 'Rarity'], $rows);
+        $io->table(['Level', 'Symbol', 'Name', 'Rarity', 'Value'], $rows);
+        $io->writeln("You looted <fg=yellow;options=bold>$lootedValue($)</fg=yellow;options=bold> gold coins.");
     }
 
     /**
