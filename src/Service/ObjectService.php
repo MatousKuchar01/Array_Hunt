@@ -34,10 +34,10 @@ class ObjectService
             }
 
             match (true) {
-                $roll <= 40 => $altar->buffLoot($knight, $lastMessage), // 40% chance (1–40)
-                // $roll <= 60 => $altar->doubleLootGold(),
-                $roll <= 70 => $altar->grantKey($knight, $lastMessage), // 30% chance (41-70)
-                default => $lastMessage = AppEnum::ALTAR_NOTHING->value // 30% chance (71–100)
+                $roll <= 25 => $altar->buffLoot($knight, $lastMessage), // 25% chance
+                $roll <= 50 => $altar->doubleLootGold($knight, $lastMessage), // 25% chance
+                $roll <= 75 => $altar->grantKey($knight, $lastMessage), // 25% chance
+                default => $lastMessage = AppEnum::ALTAR_NOTHING->value // 25% chance
             };
         } else {
             $lastMessage = AppEnum::ALTAR_QUIT->value;

@@ -118,7 +118,7 @@ enum Loot
             self::POINTER => 'This is how pointers in C really look like.',
             self::INFINITE_LOOP => 'It goes on and on and on and on...',
             self::CODING_HAT => 'Boosts your coding poweeer.',
-            self::MEMORY_LEAK => '',
+            self::MEMORY_LEAK => 'You better call free() quickly!',
             self::BIGGER_BUG => 'Very scary stuff.',
             // LEGENDARY
             self::RAGING_GUY => 'He is mad!',
@@ -159,6 +159,39 @@ enum Loot
             self::DUCKY_DUCK => '<> <> <>',
             self::HAPPY_GUY => '<> <> <>',
             self::HUGE_CAT => '<> <> <>',
+        };
+    }
+
+    /**
+     * Returns item gold value
+     * @return int
+     */
+    public function goldValue(): int
+    {
+        return match ($this) {
+            // COMMON
+            self::COLD_COFFEE => 0,
+            self::NOTHING => 0,
+            self::FUNNY_GUY => 10,
+            self::CONFUSED_GUY => 10,
+            self::SLEEPING_GUY => 10,
+            self::KITTY => 20,
+            self::KITTY_2 => 20,
+            self::BUG => 20,
+            self::ACTUAL_NULL => 20,
+            // RARE
+            self::LONGSWORD => 100,
+            self::POINTER => 100,
+            self::INFINITE_LOOP => 130,
+            self::CODING_HAT => 130,
+            self::MEMORY_LEAK => 150,
+            self::BIGGER_BUG => 150,
+            // LEGENDARY
+            self::RAGING_GUY => 300,
+            self::WIZARD => 400,
+            self::DUCKY_DUCK => 500,
+            self::HAPPY_GUY => 600,
+            self::HUGE_CAT => 700,
         };
     }
 

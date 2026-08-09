@@ -70,6 +70,7 @@ class LootGenerator
             ["Name", $loot->label()],
             ["Description", $loot->description()],
             ["Rarity", $loot->rarity()],
+            ["Value", $loot->goldValue()],
         ];
     }
 }
