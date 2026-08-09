@@ -11,6 +11,7 @@ use App\Enum\Loot;
 use App\Generator\LootGenerator;
 use App\Util\Orc;
 use App\Util\Altar;
+use App\Util\Fountain;
 
 class ArrayGenerator
 {
@@ -52,6 +53,14 @@ class ArrayGenerator
     public static function generateFifthLevel(): array
     {
         return self::buildArray(LootGenerator::drop(level: 5), depth: 4, isLocked: true);
+    }
+
+    /**
+     * @return array<string|int, mixed>
+     */
+    public static function generateSixthLevel(): array
+    {
+        return self::buildArrayWithFountain(LootGenerator::drop(level: 6), depth: 3);
     }
 
     /**
@@ -103,6 +112,41 @@ class ArrayGenerator
         }
 
         $currentArray = new Chest($loot, isLocked: $isLocked); // hide loot at the end of array
+
+        return $finalArray;
+    }
+
+    /**
+    * Special array builder for level 6 with fountain
+    * @param Loot $loot
+    * @param int $depth
+    * @return array<string|int, mixed>
+    */
+    private static function buildArrayWithFountain(Loot $loot, int $depth): array
+    {
+        $finalArray = [];
+        $currentArray = &$finalArray;
+
+        $fountainSpawnDepth = rand(0, $depth - 1);
+
+        for ($i = 0; $i < $depth; $i++) {
+            $mainKey = self::generateRandomKey();
+
+            do {
+                $sideKey = self::generateRandomKey();
+            } while ($mainKey === $sideKey);
+
+            if ($i === $fountainSpawnDepth) {
+                $currentArray[$sideKey] = new Fountain(); // guaranteed fountain
+            } else {
+                $currentArray[$sideKey] = "[]";
+            }
+
+            $currentArray[$mainKey] = [];
+            $currentArray = &$currentArray[$mainKey];
+        }
+
+        $currentArray = new Chest($loot, isLocked: false);
 
         return $finalArray;
     }
@@ -167,7 +211,7 @@ class ArrayGenerator
             $value instanceof Orc => "\033[1;31m" . $stringValue . "\033[0m", // Bold Red
             $value instanceof Mimic => "\033[0;31m" . $stringValue . "\033[0m", // Red
             $value instanceof Altar => "\033[1;35m" . $stringValue . "\033[0m", // Bold purple
-            //$value instanceof Fountain => "\033[1;36m" . $stringValue . "\033[0m", // Light blue
+            $value instanceof Fountain => "\033[1;36m" . $stringValue . "\033[0m", // Light blue
             default => "\033[90m" . $stringValue . "\033[0m", // Grey for basic "[]"
         };
     }

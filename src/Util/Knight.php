@@ -11,6 +11,8 @@ class Knight
 {
     /** @var int */
     public int $hp = 3; // <3 <3 <3
+    /** @var int */
+    public int $maxHp = 3; // Maximum current capacity of hp
     /** @var boolean */
     public bool $hasKey = false; // for opening the chest
     /** @var boolean */
@@ -39,6 +41,16 @@ class Knight
     public function takeDamage(int $amount): void
     {
         $this->hp -= $amount;
+    }
+
+    /**
+     * heals knight
+     * @param int $amount
+     * @return void
+     */
+    public function heal(int $amount): void
+    {
+        $this->hp = min($this->hp + $amount, $this->maxHp);
     }
 
     /**

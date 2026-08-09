@@ -117,7 +117,7 @@ class RenderService
         $io->title(AppEnum::VICTORY->value);
 
         $io->text([
-            "You navigated through all 5 levels, defeated the Orcs,",
+            "You navigated through all levels, defeated the Orcs,",
             "got the loot, and avoided the Mimics!",
             "",
             "Final Status:",

@@ -16,6 +16,7 @@ class LootGenerator
         3 => ['common' => 50, 'rare' => 40, 'legendary' => 10],
         4 => ['common' => 30, 'rare' => 40, 'legendary' => 30],
         5 => ['common' => 0, 'rare' => 0, 'legendary' => 100],
+        6 => ['common' => 0, 'rare' => 20, 'legendary' => 80],
     ];
 
     /**

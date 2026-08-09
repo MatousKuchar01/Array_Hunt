@@ -53,4 +53,10 @@ enum AppEnum: string
 	case ALTAR_QUIT = 'Scared? Hahahah....';
 	case ALTAR_BUFF_LOOT = 'Altar shined with golden light! Your next loot will be gooooood.....';
 	case ALTAR_BUFF_GOLD = 'Altar blessed your loot. Its worth increased.';
+
+	// fountain
+	case FOUNTAIN_USED = 'There is no water left in the fountain..';
+	case FOUNTAIN_QUIT = 'You decided not to drink from it..';
+	case FOUNTAIN_HEAL = 'Sparkling water refreshed you! -> +1 HP';
+	case FOUNTAIN_POISON = 'Water was poisoned by the orcs! -> -1 HP';
 }
